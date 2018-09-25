@@ -1,3 +1,9 @@
+' CODE USED TO CONVERT OPEN ORDERS RECEIVED FROM THE SUPPLIER OR CUSTOMER
+' TO XML FORMAT WHICH IS THEN DRAG AND DROPPED INTO ERP SYSTEM
+' GREATLY REDUCING THE AMMOUNT OF TIME NEEDED BY OFFICE WORKERS
+' TO INSERT NEEDED DATA WHICH WAS PREVOIUSLY DONE ONE BY ONE BY HAND
+
+
 Sub ArrowDataCopy()
 '======================================================================================================================================================'
 '======================================== MACRO TO CONVERT ARROW CONFIRMATION EXCEL INTO XML =========================================================='
