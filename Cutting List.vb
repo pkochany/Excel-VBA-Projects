@@ -5,9 +5,6 @@
 
 Sub EvaluateCuttingList(control As IRibbonControl)
 '
-    ' CUTTING LIST DATA EVALUATION MACRO BY PIOTR KOCHANY - RIMASTER COMPANY - 27-02-2017 '
-    ' LAST MODIF 10-04-2017 '
-    
     ' declare counter for table of values
     Dim rowCount As Integer
     rowCount = 5
@@ -152,7 +149,7 @@ Sub EvaluateCuttingList(control As IRibbonControl)
 
         ' check if exist in BOM '
         Sheets("COMPARE").Range("C2", endCountColumnC).FormulaR1C1 = _
-            "=VLOOKUP(RC[-2],Tabela_Kwerenda_z_001_Rimaster_Poland_Sp._z_o.o[[art_artnr]:[Kolumna1]],3,0)"
+            "=VLOOKUP(RC[-2],Tabela_Kwerenda_z_001_xxx[[art_artnr]:[Kolumna1]],3,0)"
 
         ' convert data to string '
         Sheets("COMPARE").Columns("C:C").Copy
@@ -240,7 +237,7 @@ Sub EvaluateCuttingList(control As IRibbonControl)
         Worksheets("BOM").Range("G2", gFormEnd).PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
             :=False, Transpose:=False
         
-        Worksheets("BOM").Range("Tabela_Kwerenda_z_001_Rimaster_Poland_Sp._z_o.o").RemoveDuplicates Columns:=4, Header:=xlYes
+        Worksheets("BOM").Range("Tabela_Kwerenda_z_001_xxx").RemoveDuplicates Columns:=4, Header:=xlYes
 
         
 '====================================================================================================================================================================================
