@@ -2,9 +2,6 @@
 ' IT IS ALSO SHOWING POSSIBLE LOSS ON OPEN PURCHASE ORDERS
 
 Sub CalculatePurchaseAtSubSupplier(control As IRibbonControl)
-'
-'   CALCULATION OF PURCHASE MADE IN OTHER SUPPLIER THAN MAIN BY PIOTR KOCHANY AT RIMASTER POLAND 20-03-2017
-'
     Worksheets("Analysis").ListObjects("Tabela_Analiza_drozszych_zakuow___2").Range. _
         AutoFilter Field:=11
 
