@@ -1,8 +1,5 @@
 
 Sub mark_filtered()
-'
-' clear_generate Makro
-'
   Dim tableLength As Long
   tableLength = 1
   For Each i In Worksheets(1).Range("A2:A100000")
@@ -885,7 +882,7 @@ Sub saveQuotePDF()
     localPathAndName = Environ("USERPROFILE") & "\Desktop\" & fileName
     
     Dim serverPathAndName As String
-    serverPathAndName = "C:\Users\JulienFambrini\Google Drive\_GENERATOR\Julien Fambrini\Sales offers\" & fileName
+    serverPathAndName = "C:\Users\XxX\Google Drive\_GENERATOR\XxX\Sales offers\" & fileName
 
     Dim pageCount As Integer
     pageCount = Worksheets(2).Range("M15").Value
@@ -1084,7 +1081,7 @@ On Error GoTo meh
     localPathAndName = Environ("USERPROFILE") & "\Desktop\" & fileName
     
     Dim serverPathAndName As String
-    serverPathAndName = "C:\Users\JulienFambrini\Google Drive\_GENERATOR\Julien Fambrini\Sales offers\" & fileName
+    serverPathAndName = "C:\Users\XxX\Google Drive\_GENERATOR\XxX\Sales offers\" & fileName
 
     ' Figure out how many pages to print
     Dim endOfOffer As String
@@ -1344,7 +1341,7 @@ Sub save_BOM_as_PDF()
     localPathAndName = Environ("USERPROFILE") & "\Desktop\" & fileName
     
     Dim serverPathAndName As String
-    serverPathAndName = "C:\Users\JulienFambrini\Google Drive\_GENERATOR\Julien Fambrini\BOMs\" & fileName
+    serverPathAndName = "C:\Users\XxX\Google Drive\_GENERATOR\XxX\BOMs\" & fileName
     
     ' CHANGE LAYOUT START '
     Application.PrintCommunication = False
@@ -1599,7 +1596,7 @@ On Error GoTo meh
     Dim fileName As String
     fileName = clientName + " - " + clientReference + " - " + offerDate + " - " + quotatnionNo + " - " + projectReference
     Dim serverPathAndName As String
-    serverPathAndName = "C:\Users\JulienFambrini\Google Drive\_GENERATOR\Julien Fambrini\Sales offers\" & fileName
+    serverPathAndName = "C:\Users\XxX\Google Drive\_GENERATOR\XxX\Sales offers\" & fileName
     ' Figure out how many pages to print
     Dim endOfOffer As String
     Dim pageCount As Integer
