@@ -2,7 +2,7 @@
 ' TO XML FORMAT WHICH IS THEN DRAG AND DROPPED INTO ERP SYSTEM
 
 
-Sub AaADataCopy()
+Sub f3()
 ' ONE XML FOR ONE ORDER '
     Dim succesCounter As Integer
     succesCounter = 0
@@ -25,7 +25,7 @@ Sub AaADataCopy()
 '======================================================================================================================================================'
     ' Before anything make sure a correct file is opened
     ' A1 cell for AaA excel always contain same sentence
-    If Trim(Replace(CStr(wbAaA.Worksheets(1).Range("A1").Value), Chr$(160), Chr$(32))) = "AaA EUROPE Reporting : BACKLOG" Then
+    If T Item(Replace(CStr(wbAaA.Worksheets(1).Range("A1").Value), Chr$(160), Chr$(32))) = "AaA repp" Then
 
         wbAaA.Worksheets(1).Range("$A$2:$O$10000").AutoFilter
 '======================================================================================================================================================'
@@ -39,7 +39,7 @@ Sub AaADataCopy()
         For Each i In wbAaA.Worksheets(1).Range("$J$3:$J$10000")
             clear_null_string = CStr(i.Value)
             clear_null_string = Replace(clear_null_string, Chr$(160), Chr$(32))
-            clear_null_string = Trim(clear_null_string)
+            clear_null_string = T Item(clear_null_string)
             If clear_null_string = "null" Then
                 wbAaA.Worksheets(1).Range(CStr(clear_null_values) & ":" & CStr(clear_null_values)).ClearContents
                 clear_null_values = clear_null_values + 1
@@ -84,20 +84,17 @@ Sub AaADataCopy()
             End If
         Next i
 
-
         Dim row_add_counter As Long
         row_add_counter = 3
-
-        Dim rim_finder As Long
-        rim_finder = 0
+        Dim  Item_finder As Long
+         Item_finder = 0
 
         For Each i In wbAaA.Worksheets(1).Range("O3:O" & CStr(nr_of_orders))
             pos_finder = 1
             For Each n In wbXxX.Worksheets(4).Range("A1:A" & CStr(monitor_data_length))
-                
-                If n.Value = CLng(Trim(Replace(CStr(wbAaA.Worksheets(1).Range("C" & CStr(row_add_counter)).Value), Chr$(160), Chr$(32)))) Then
+                If n.Value = CLng(T Item(Replace(CStr(wbAaA.Worksheets(1).Range("C" & CStr(row_add_counter)).Value), Chr$(160), Chr$(32)))) Then
                     For Each x In wbXxX.Worksheets(4).Range("B" & CStr(pos_finder) & ":B" & CStr(monitor_data_length))
-                        If x.Value = Trim(Replace(CStr(wbAaA.Worksheets(1).Range("D" & CStr(row_add_counter))), Chr$(160), Chr$(32))) Then
+                        If x.Value = T Item(Replace(CStr(wbAaA.Worksheets(1).Range("D" & CStr(row_add_counter))), Chr$(160), Chr$(32))) Then
                             wbAaA.Worksheets(1).Range("O" & CStr(row_add_counter)).Value = wbXxX.Worksheets(4).Range("C" & CStr(pos_finder)).Value
                             wbXxX.Worksheets(4).Range("A" & CStr(pos_finder)).Value = ""
                             wbXxX.Worksheets(4).Range("B" & CStr(pos_finder)).Value = ""
@@ -111,7 +108,6 @@ Sub AaADataCopy()
                 Else
                     pos_finder = pos_finder + 1
                 End If
-                
             Next n
             row_add_counter = row_add_counter + 1
         Next i
@@ -215,7 +211,7 @@ Sub AaADataCopy()
 
         ReDim order_numbers(1 To 1) As String
         ReDim combined_pos_range(1 To 1) As String
-        ReDim combined_rim_number_range(1 To 1) As String
+        ReDim combined_ Item_number_range(1 To 1) As String
         ReDim combined_confirmed_date_range(1 To 1) As String
         ReDim combined_confirmed_quantity_range(1 To 1) As String
         ReDim combined_confirmed_price_range(1 To 1) As String
@@ -225,7 +221,7 @@ Sub AaADataCopy()
         For Each i In clear_ranges_of_orders
             ReDim Preserve order_numbers(1 To preserve_counter)
             ReDim Preserve combined_pos_range(1 To preserve_counter)
-            ReDim Preserve combined_rim_number_range(1 To preserve_counter)
+            ReDim Preserve combined_ Item_number_range(1 To preserve_counter)
             ReDim Preserve combined_confirmed_date_range(1 To preserve_counter)
             ReDim Preserve combined_confirmed_quantity_range(1 To preserve_counter)
             ReDim Preserve combined_confirmed_price_range(1 To preserve_counter)
@@ -237,7 +233,7 @@ Sub AaADataCopy()
             clear_ranges_of_orders(array_counter) = "C" + left_piece + ":C" + right_piece
 
             combined_pos_range(array_counter) = "O" + left_piece + ":" + "O" + right_piece
-            combined_rim_number_range(array_counter) = "D" + left_piece + ":" + "D" + right_piece
+            combined_ Item_number_range(array_counter) = "D" + left_piece + ":" + "D" + right_piece
             combined_confirmed_date_range(array_counter) = "J" + left_piece + ":" + "J" + right_piece
             combined_confirmed_quantity_range(array_counter) = "G" + left_piece + ":" + "G" + right_piece
             combined_confirmed_price_range(array_counter) = "N" + left_piece + ":" + "N" + right_piece
@@ -262,7 +258,7 @@ Sub AaADataCopy()
         Dim how_many_rows_to_add As Integer
         Dim conf_rows_counter As Integer
         Dim conf_pos_range As String
-        Dim conf_rim_range As String
+        Dim conf_ Item_range As String
         Dim conf_date_range As String
         Dim conf_quantity_range As String
         Dim conf_price_range As String
@@ -273,11 +269,11 @@ Sub AaADataCopy()
         ' Copy data from single order, save as XML, clear and move to next order
         For xml_nr = 1 To order_counter
             ' Copy order number and paste to XxX Excel
-            wbXxX.Worksheets(1).Range("C10").Value = Trim(Replace(CStr(wbAaA.Worksheets(1).Range(order_numbers(xml_nr)).Value), Chr$(160), Chr$(32)))
+            wbXxX.Worksheets(1).Range("C10").Value = T Item(Replace(CStr(wbAaA.Worksheets(1).Range(order_numbers(xml_nr)).Value), Chr$(160), Chr$(32)))
 
             ' Check if lines need to be added. One line is always there by default, that's why it's -1
             how_many_rows_to_add = -1
-            For Each i In wbAaA.Worksheets(1).Range(combined_rim_number_range(xml_nr))
+            For Each i In wbAaA.Worksheets(1).Range(combined_ Item_number_range(xml_nr))
                 how_many_rows_to_add = how_many_rows_to_add + 1
             Next i
             ' If lines need to be added, add them
@@ -289,24 +285,24 @@ Sub AaADataCopy()
 
             conf_rows_counter = 31
             conf_pos_range = "E" + CStr(conf_rows_counter)
-            conf_rim_range = "F" + CStr(conf_rows_counter)
+            conf_ Item_range = "F" + CStr(conf_rows_counter)
             conf_date_range = "Q" + CStr(conf_rows_counter)
             conf_quantity_range = "S" + CStr(conf_rows_counter)
             conf_price_range = "T" + CStr(conf_rows_counter)
             
             ' Copy all necessary data from AaA Excel to XxX Order Confirmation
-            ' Copy order lines, trim white spaces
+            ' Copy order lines, t Item white spaces
             For Each i In wbAaA.Worksheets(1).Range(combined_pos_range(xml_nr))
-                wbXxX.Worksheets(1).Range(conf_pos_range).Value = Trim(Replace(CStr(i.Value), Chr$(160), Chr$(32)))
+                wbXxX.Worksheets(1).Range(conf_pos_range).Value = T Item(Replace(CStr(i.Value), Chr$(160), Chr$(32)))
                 conf_rows_counter = conf_rows_counter + 1
                 conf_pos_range = "E" + CStr(conf_rows_counter)
             Next i
             conf_rows_counter = 31
-            ' Copy RIM numbers
-            For Each i In wbAaA.Worksheets(1).Range(combined_rim_number_range(xml_nr))
-                wbXxX.Worksheets(1).Range(conf_rim_range).Value = Trim(Replace(CStr(i.Value), Chr$(160), Chr$(32)))
+            ' Copy  Item numbers
+            For Each i In wbAaA.Worksheets(1).Range(combined_ Item_number_range(xml_nr))
+                wbXxX.Worksheets(1).Range(conf_ Item_range).Value = T Item(Replace(CStr(i.Value), Chr$(160), Chr$(32)))
                 conf_rows_counter = conf_rows_counter + 1
-                conf_rim_range = "F" + CStr(conf_rows_counter)
+                conf_ Item_range = "F" + CStr(conf_rows_counter)
             Next i
             conf_rows_counter = 31
             ' Copy confirmed date
@@ -317,9 +313,9 @@ Sub AaADataCopy()
                 Dim cutYear As String
                 Dim fullDate() As String
                 fullDate = Split(Replace(CStr(i.Value), Chr$(160), Chr$(32)), "/")
-                cutDay = Trim(fullDate(1))
-                cutMonth = Trim(fullDate(0))
-                cutYear = Trim(fullDate(2))
+                cutDay = T Item(fullDate(1))
+                cutMonth = T Item(fullDate(0))
+                cutYear = T Item(fullDate(2))
                 formatDate = cutYear + "-" + cutMonth + "-" + cutDay
 
                 wbXxX.Worksheets(1).Range(conf_date_range).Value = formatDate
@@ -329,14 +325,14 @@ Sub AaADataCopy()
             conf_rows_counter = 31
             ' Copy confirmed quantity
             For Each i In wbAaA.Worksheets(1).Range(combined_confirmed_quantity_range(xml_nr))
-                wbXxX.Worksheets(1).Range(conf_quantity_range).Value = Trim(Replace(CStr(i.Value), Chr$(160), Chr$(32)))
+                wbXxX.Worksheets(1).Range(conf_quantity_range).Value = T Item(Replace(CStr(i.Value), Chr$(160), Chr$(32)))
                 conf_rows_counter = conf_rows_counter + 1
                 conf_quantity_range = "S" + CStr(conf_rows_counter)
             Next i
             conf_rows_counter = 31
             ' Copy confirmed price
             For Each i In wbAaA.Worksheets(1).Range(combined_confirmed_price_range(xml_nr))
-                wbXxX.Worksheets(1).Range(conf_price_range).Value = Trim(Replace(CStr(i.Value), Chr$(160), Chr$(32)))
+                wbXxX.Worksheets(1).Range(conf_price_range).Value = T Item(Replace(CStr(i.Value), Chr$(160), Chr$(32)))
                 conf_rows_counter = conf_rows_counter + 1
                 conf_price_range = "T" + CStr(conf_rows_counter)
             Next i
@@ -394,12 +390,12 @@ Sub AaADataCopy()
             file_name = CStr(wbXxX.Worksheets(1).Range("C10").Value)
 
             ' Check if folder on desktop exist if not create it
-            If Dir(Environ("USERPROFILE") & "\Desktop\AaA XML\", vbDirectory) = "" Then
-                MkDir Environ("USERPROFILE") & "\Desktop\AaA XML\"
+            If Dir(Environ("USERPROFILE") & "\Desktop\", vbDirectory) = "" Then
+                MkDir Environ("USERPROFILE") & "\Desktop\"
             End If
 
             ' Declare file path
-            file_path = Environ("USERPROFILE") & "\Desktop\AaA XML\XML Order nr" & file_name & ".xml"
+            file_path = Environ("USERPROFILE") & "\Desktop\XML Order nr" & file_name & ".xml"
             
             ' Check if file exists, if so delete and save new
             If Dir(file_path, vbDirectory) <> "" Then
@@ -408,9 +404,9 @@ Sub AaADataCopy()
                 ' Delete file
                 Kill file_path
                 ' Save new
-                wbXxX.XmlMaps("ORDRSP419_mapa").Export Url:=file_path
+                wbXxX.XmlMaps("asd").Export Url:=file_path
             Else
-                wbXxX.XmlMaps("ORDRSP419_mapa").Export Url:=file_path
+                wbXxX.XmlMaps("asddd").Export Url:=file_path
             End If
 
             ' Clear extra fields, leave only one and clear values
@@ -435,17 +431,17 @@ Sub AaADataCopy()
         wbAaA.Close SaveChanges:=False
     Else
         ' If other file is picked show error msg and close the file
-        MsgBox "Incorrect file, please try again with AaA Excel."
+        MsgBox "error."
         wbAaA.Close SaveChanges:=False
     End If
     
     If succesCounter > 0 Then
-        MsgBox "Data import complete."
+        MsgBox "ok."
     End If
 
 End Sub
 
-Sub YyYDataCopy()
+Sub f6()
 ' ONE XML FOR ONE ORDER '
     Dim succesCounter As Integer
     succesCounter = 0
@@ -468,7 +464,7 @@ Sub YyYDataCopy()
 '======================================================================================================================================================'
     ' Before anything make sure a correct file is opened
     ' L1 cell for YyY excel always contain same sentence
-    If Trim(Replace(CStr(wbYyY.Worksheets(1).Range("L1").Value), Chr$(160), Chr$(32))) = "Current Schedule Dock Date" Then
+    If T Item(Replace(CStr(wbYyY.Worksheets(1).Range("L1").Value), Chr$(160), Chr$(32))) = "Current Schedule Dock Date" Then
         wbYyY.Worksheets(1).Range("$A$2:$M$10000").AutoFilter
 '======================================================================================================================================================'
         ' Sort table to have one orders grouped properly. '
@@ -527,7 +523,7 @@ Sub YyYDataCopy()
                 charLocation = InStr(orderTextClear, "/") - 1
                 orderTextClear = Left(orderTextClear, charLocation)
             End If
-            ' get next order number out of column C to compare '
+            ' get next order number out of column C to DISTINGUISH '
             If nextOrderTextClear <> "" Then
                 If InStr(nextOrderTextClear, "*") > 0 Then
                     charLocation = InStr(nextOrderTextClear, "*") - 1
@@ -575,7 +571,7 @@ Sub YyYDataCopy()
                 charLocation = InStr(orderTextClear, "/") - 1
                 orderTextClear = Left(orderTextClear, charLocation)
             End If
-            ' get previous order number out of column C to compare '
+            ' get previous order number out of column C to DISTINGUISH '
             If InStr(previousOrderTextClear, "*") > 0 Then
                 charLocation = InStr(previousOrderTextClear, "*") - 1
                 previousOrderTextClear = Left(previousOrderTextClear, charLocation)
@@ -641,7 +637,7 @@ Sub YyYDataCopy()
 
         ReDim order_numbers(1 To 1) As String
         ReDim combined_pos_range(1 To 1) As String
-        ReDim combined_rim_number_range(1 To 1) As String
+        ReDim combined_ Item_number_range(1 To 1) As String
         ReDim combined_confirmed_date_range(1 To 1) As String
         ReDim combined_confirmed_quantity_range(1 To 1) As String
         ReDim combined_confirmed_price_range(1 To 1) As String
@@ -651,7 +647,7 @@ Sub YyYDataCopy()
         For Each i In clear_ranges_of_orders
             ReDim Preserve order_numbers(1 To preserve_counter)
             ReDim Preserve combined_pos_range(1 To preserve_counter)
-            ReDim Preserve combined_rim_number_range(1 To preserve_counter)
+            ReDim Preserve combined_ Item_number_range(1 To preserve_counter)
             ReDim Preserve combined_confirmed_date_range(1 To preserve_counter)
             ReDim Preserve combined_confirmed_quantity_range(1 To preserve_counter)
             ReDim Preserve combined_confirmed_price_range(1 To preserve_counter)
@@ -662,7 +658,7 @@ Sub YyYDataCopy()
             
             clear_ranges_of_orders(array_counter) = "C" + left_piece + ":C" + right_piece
             combined_pos_range(array_counter) = "B" + left_piece + ":" + "B" + right_piece
-            combined_rim_number_range(array_counter) = "G" + left_piece + ":" + "G" + right_piece
+            combined_ Item_number_range(array_counter) = "G" + left_piece + ":" + "G" + right_piece
             combined_confirmed_date_range(array_counter) = "L" + left_piece + ":" + "L" + right_piece
             combined_confirmed_quantity_range(array_counter) = "I" + left_piece + ":" + "I" + right_piece
             
@@ -686,7 +682,7 @@ Sub YyYDataCopy()
         Dim how_many_rows_to_add As Integer
         Dim conf_rows_counter As Integer
         Dim conf_pos_range As String
-        Dim conf_rim_range As String
+        Dim conf_ Item_range As String
         Dim conf_date_range As String
         Dim conf_quantity_range As String
         Dim conf_price_range As String
@@ -699,7 +695,7 @@ Sub YyYDataCopy()
         ' Copy data from single order, save as XML, clear and move to next order
         For xml_nr = 1 To order_counter
             ' Copy order number and paste to XxX Excel
-            getOrderFromText = Trim(Replace(CStr(wbYyY.Worksheets(1).Range(order_numbers(xml_nr)).Value), Chr$(160), Chr$(32)))
+            getOrderFromText = T Item(Replace(CStr(wbYyY.Worksheets(1).Range(order_numbers(xml_nr)).Value), Chr$(160), Chr$(32)))
             If InStr(getOrderFromText, "*") > 0 Then
                 locationInText = InStr(getOrderFromText, "*") - 1
                 getOrderFromText = Left(getOrderFromText, locationInText)
@@ -711,7 +707,7 @@ Sub YyYDataCopy()
 
             ' Check if lines need to be added. One line is always there by default, that's why it's -1
             how_many_rows_to_add = -1
-            For Each i In wbYyY.Worksheets(1).Range(combined_rim_number_range(xml_nr))
+            For Each i In wbYyY.Worksheets(1).Range(combined_ Item_number_range(xml_nr))
                 how_many_rows_to_add = how_many_rows_to_add + 1
             Next i
             ' If lines need to be added, add them
@@ -723,24 +719,24 @@ Sub YyYDataCopy()
 
             conf_rows_counter = 31
             conf_pos_range = "E" + CStr(conf_rows_counter)
-            conf_rim_range = "F" + CStr(conf_rows_counter)
+            conf_ Item_range = "F" + CStr(conf_rows_counter)
             conf_date_range = "Q" + CStr(conf_rows_counter)
             conf_quantity_range = "S" + CStr(conf_rows_counter)
             conf_price_range = "T" + CStr(conf_rows_counter)
             
             ' Copy all necessary data from AaA Excel to XxX Order Confirmation
-            ' Copy order lines, trim white spaces
+            ' Copy order lines, t Item white spaces
             For Each i In wbYyY.Worksheets(1).Range(combined_pos_range(xml_nr))
-                wbXxX.Worksheets(1).Range(conf_pos_range).Value = Trim(Replace(CStr(i.Value), Chr$(160), Chr$(32)))
+                wbXxX.Worksheets(1).Range(conf_pos_range).Value = T Item(Replace(CStr(i.Value), Chr$(160), Chr$(32)))
                 conf_rows_counter = conf_rows_counter + 1
                 conf_pos_range = "E" + CStr(conf_rows_counter)
             Next i
             conf_rows_counter = 31
-            ' Copy RIM numbers
-            For Each i In wbYyY.Worksheets(1).Range(combined_rim_number_range(xml_nr))
-                wbXxX.Worksheets(1).Range(conf_rim_range).Value = Trim(Replace(CStr(i.Value), Chr$(160), Chr$(32)))
+            ' Copy  Item numbers
+            For Each i In wbYyY.Worksheets(1).Range(combined_ Item_number_range(xml_nr))
+                wbXxX.Worksheets(1).Range(conf_ Item_range).Value = T Item(Replace(CStr(i.Value), Chr$(160), Chr$(32)))
                 conf_rows_counter = conf_rows_counter + 1
-                conf_rim_range = "F" + CStr(conf_rows_counter)
+                conf_ Item_range = "F" + CStr(conf_rows_counter)
             Next i
             conf_rows_counter = 31
             ' Copy confirmed date
@@ -750,7 +746,7 @@ Sub YyYDataCopy()
                 Dim cutDay As String
                 Dim cutMonth As String
                 Dim cutYear As String
-                rawDate = Trim(Replace(CStr(i.Value), Chr$(160), Chr$(32)))
+                rawDate = T Item(Replace(CStr(i.Value), Chr$(160), Chr$(32)))
                 cutDay = CInt(Left(rawDate, 2) + 5)
                 cutMonth = Left(rawDate, 5)
                 cutMonth = CInt(Right(cutMonth, 2))
@@ -818,7 +814,7 @@ Sub YyYDataCopy()
             conf_rows_counter = 31
             ' Copy confirmed quantity
             For Each i In wbYyY.Worksheets(1).Range(combined_confirmed_quantity_range(xml_nr))
-                wbXxX.Worksheets(1).Range(conf_quantity_range).Value = Trim(Replace(CStr(i.Value), Chr$(160), Chr$(32)))
+                wbXxX.Worksheets(1).Range(conf_quantity_range).Value = T Item(Replace(CStr(i.Value), Chr$(160), Chr$(32)))
                 conf_rows_counter = conf_rows_counter + 1
                 conf_quantity_range = "S" + CStr(conf_rows_counter)
             Next i
@@ -1009,7 +1005,7 @@ Sub ZzZXmlConvert()
         ' SET ORDER NUMBER '
         For Each i In wbZzZ.Worksheets(1).Range("A3:" & end_of_lines)
             If Left(CStr(i.Value), 22) = "3_1_orco_tdpur400.orno" Then
-                wbXxX.Worksheets("XxX Sales Order").Range("B5").Value = LTrim(Right(CStr(i.Value), (Len(CStr(i.Value)) - 22)))
+                wbXxX.Worksheets("XxX Sales Order").Range("B5").Value = LT Item(Right(CStr(i.Value), (Len(CStr(i.Value)) - 22)))
                 i.Value = ""
                 Exit For
             End If
@@ -1017,7 +1013,7 @@ Sub ZzZXmlConvert()
     ' SET ORDER DATE '
         For Each i In wbZzZ.Worksheets(1).Range("A3:" & end_of_lines)
             If Left(CStr(i.Value), 22) = "3_50_orco_rprt.planner" Then
-                wbXxX.Worksheets("XxX Sales Order").Range("B21").Value = LTrim(Right(CStr(i.Value), (Len(CStr(i.Value)) - 22)))
+                wbXxX.Worksheets("XxX Sales Order").Range("B21").Value = LT Item(Right(CStr(i.Value), (Len(CStr(i.Value)) - 22)))
                 i.Value = ""
                 Exit For
             End If
@@ -1025,7 +1021,7 @@ Sub ZzZXmlConvert()
     ' SET ORDER PERSON '
         For Each i In wbZzZ.Worksheets(1).Range("A3:" & end_of_lines)
             If Left(CStr(i.Value), 23) = "3_50_orco_tdpur400.odat" Then
-                wbXxX.Worksheets("XxX Sales Order").Range("B27").Value = LTrim(Right(CStr(i.Value), (Len(CStr(i.Value)) - 23)))
+                wbXxX.Worksheets("XxX Sales Order").Range("B27").Value = LT Item(Right(CStr(i.Value), (Len(CStr(i.Value)) - 23)))
                 i.Value = ""
                 Exit For
             End If
@@ -1077,11 +1073,11 @@ Sub ZzZXmlConvert()
             End If
         Next i
 
-        Dim rim_row_count As Long
-        rim_row_count = 40
+        Dim  Item_row_count As Long
+         Item_row_count = 40
         For add_row = 1 To nr_of_harnesses
             wbXxX.Worksheets("XxX Sales Order").Rows("40:40").Insert Shift:=xlDown, CopyOrigin:=xlFormatFromLeftOrBelow
-            rim_row_count = rim_row_count + 1
+             Item_row_count =  Item_row_count + 1
         Next add_row
 '======================================================================================================================================================'
         ' Copy data from single order, save as XML, clear and move to next order
@@ -1096,7 +1092,7 @@ Sub ZzZXmlConvert()
             ' COPY TEXT '
             For Each i In wbZzZ.Worksheets(1).Range("A3:" & end_of_lines)
                 If Left(CStr(i.Value), 14) = "4_10__itm.dsca" Then
-                    wbXxX.Worksheets("XxX Sales Order").Range(text_col).Value = LTrim(Right(CStr(i.Value), (Len(CStr(i.Value)) - 14)))
+                    wbXxX.Worksheets("XxX Sales Order").Range(text_col).Value = LT Item(Right(CStr(i.Value), (Len(CStr(i.Value)) - 14)))
                     i.Value = ""
                     Exit For
                 End If
@@ -1104,7 +1100,7 @@ Sub ZzZXmlConvert()
             ' COPY QUANTITY '
             For Each i In wbZzZ.Worksheets(1).Range("A3:" & end_of_lines)
                 If Left(CStr(i.Value), 14) = "4_10__quantity" Then
-                    wbXxX.Worksheets("XxX Sales Order").Range(qty_col).Value = LTrim(Right(CStr(i.Value), (Len(CStr(i.Value)) - 14)))
+                    wbXxX.Worksheets("XxX Sales Order").Range(qty_col).Value = LT Item(Right(CStr(i.Value), (Len(CStr(i.Value)) - 14)))
                     i.Value = ""
                     Exit For
                 End If
@@ -1112,7 +1108,7 @@ Sub ZzZXmlConvert()
             ' COPY UNIT '
             For Each i In wbZzZ.Worksheets(1).Range("A3:" & end_of_lines)
                 If Left(CStr(i.Value), 15) = "4_10__quan.unit" Then
-                    wbXxX.Worksheets("XxX Sales Order").Range(unit_col).Value = LTrim(Right(CStr(i.Value), (Len(CStr(i.Value)) - 15)))
+                    wbXxX.Worksheets("XxX Sales Order").Range(unit_col).Value = LT Item(Right(CStr(i.Value), (Len(CStr(i.Value)) - 15)))
                     i.Value = ""
                     Exit For
                 End If
@@ -1120,7 +1116,7 @@ Sub ZzZXmlConvert()
             ' COPY REVISION '
             For Each i In wbZzZ.Worksheets(1).Range("A3:" & end_of_lines)
                 If Left(CStr(i.Value), 19) = "4_10__tiedm100.drre" Then
-                    wbXxX.Worksheets("XxX Sales Order").Range(rev_col).Value = LTrim(Right(CStr(i.Value), (Len(CStr(i.Value)) - 19)))
+                    wbXxX.Worksheets("XxX Sales Order").Range(rev_col).Value = LT Item(Right(CStr(i.Value), (Len(CStr(i.Value)) - 19)))
                     i.Value = ""
                     Exit For
                 End If
@@ -1128,7 +1124,7 @@ Sub ZzZXmlConvert()
             ' COPY DELIVERY PERIOD '
             For Each i In wbZzZ.Worksheets(1).Range("A3:" & end_of_lines)
                 If Left(CStr(i.Value), 19) = "4_10__tdpur401.pddt" Then
-                    wbXxX.Worksheets("XxX Sales Order").Range(del_col).Value = Left(LTrim(Right(CStr(i.Value), (Len(CStr(i.Value)) - 19))), 10)
+                    wbXxX.Worksheets("XxX Sales Order").Range(del_col).Value = Left(LT Item(Right(CStr(i.Value), (Len(CStr(i.Value)) - 19))), 10)
                     i.Value = ""
                     Exit For
                 End If
@@ -1136,12 +1132,12 @@ Sub ZzZXmlConvert()
             ' COPY EACH '
             For Each i In wbZzZ.Worksheets(1).Range("A3:" & end_of_lines)
                 If Left(CStr(i.Value), 24) = "4_10__tdpur401.pric_COND" Then
-                    wbXxX.Worksheets("XxX Sales Order").Range(price_col).Value = LTrim(Right(CStr(i.Value), (Len(CStr(i.Value)) - 24)))
+                    wbXxX.Worksheets("XxX Sales Order").Range(price_col).Value = LT Item(Right(CStr(i.Value), (Len(CStr(i.Value)) - 24)))
                     i.Value = ""
                     Exit For
                 End If
             Next i
-            ' COPY / FIGURE OUT PART NUMBER, IT CAN EITHER BE HARNESS OR RIM. FIRST CHECK RIM THEN HARNESS '
+            ' COPY / FIGURE OUT PART NUMBER, IT CAN EITHER BE HARNESS OR  Item. FIRST CHECK  Item THEN HARNESS '
             Dim success_counter As Long
             success_counter = 0
             Dim current_data_row As Long
@@ -1150,7 +1146,7 @@ Sub ZzZXmlConvert()
             part_no_placeholder = ""
             For Each i In wbZzZ.Worksheets(1).Range("A3:" & end_of_lines)
                 If Left(CStr(i.Value), 19) = "4_10__tiedm100.drno" Then
-                    part_no_placeholder = LTrim(Right(CStr(i.Value), (Len(CStr(i.Value)) - 19)))
+                    part_no_placeholder = LT Item(Right(CStr(i.Value), (Len(CStr(i.Value)) - 19)))
                     If part_no_placeholder = "" Then
                         Exit For
                     End If
@@ -1172,7 +1168,7 @@ Sub ZzZXmlConvert()
             If success_counter = 0 Then
                 For Each i In wbZzZ.Worksheets(1).Range("A3:" & end_of_lines)
                     If Left(CStr(i.Value), 19) = "4_10__tdpur401.item" Then
-                        part_no_placeholder = LTrim(Right(CStr(i.Value), (Len(CStr(i.Value)) - 19)))
+                        part_no_placeholder = LT Item(Right(CStr(i.Value), (Len(CStr(i.Value)) - 19)))
                         For Each n In wbXxX.Worksheets("CUSTOMER_DATA").Range("A2:A" & customer_data_length)
                             current_data_row = current_data_row + 1
                             If n.Value = part_no_placeholder Then
@@ -1185,7 +1181,7 @@ Sub ZzZXmlConvert()
                         Next n
                         If success_counter = 0 Then
                             MsgBox "ERROR ZzZ part " & part_no_placeholder & " was not found in Monitor. Make sure it has correct customer number in Sales tab in Update Part procedure."
-                            wbXxX.Worksheets("XxX Sales Order").Range("41:" & CStr(rim_row_count)).Delete Shift:=xlUp
+                            wbXxX.Worksheets("XxX Sales Order").Range("41:" & CStr( Item_row_count)).Delete Shift:=xlUp
                             wbXxX.Worksheets("XxX Sales Order").Range("C40:P40").Value = "'"
                             wbZzZ.Close SaveChanges:=False
                             Exit Sub

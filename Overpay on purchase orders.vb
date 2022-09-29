@@ -1,11 +1,11 @@
 ' CODE USED TO GENERTE TOTAL LOSS PER MONTH ON OVERPAID PURCHASE OREDRS
 ' IT IS ALSO SHOWING POSSIBLE LOSS ON OPEN PURCHASE ORDERS
 
-Sub CalculatePurchaseAtSubSupplier(control As IRibbonControl)
-    Worksheets("Analysis").ListObjects("Tabela_Analiza_drozszych_zakuow___2").Range. _
+Sub f2(control As IRibbonControl)
+    Worksheets("incognito").ListObjects("table-1").Range. _
         AutoFilter Field:=11
 
-    Worksheets("Analysis").ListObjects("Tabela_Analiza_drozszych_zakuow___2").Range. _
+    Worksheets("incognito").ListObjects("table-1").Range. _
         AutoFilter Field:=5
     
     Worksheets("ModLog").Columns("H:H").Delete Shift:=xlToLeft
@@ -46,12 +46,12 @@ Sub CalculatePurchaseAtSubSupplier(control As IRibbonControl)
     Next rowToCopy
 '========================================================================'
 
-    Worksheets("Analysis").Columns("J:M").Delete Shift:=xlToLeft
+    Worksheets("incognito").Columns("J:M").Delete Shift:=xlToLeft
     
     Dim analysisEnd As Integer
     analysisEnd = 1
 
-    For Each calculateLastAnalysisRow In Worksheets("Analysis").Range("A2", "A1000000")
+    For Each calculateLastAnalysisRow In Worksheets("incognito").Range("A2", "A1000000")
 
         If calculateLastAnalysisRow.Value <> "" Then
             analysisEnd = analysisEnd + 1
@@ -78,43 +78,26 @@ Sub CalculatePurchaseAtSubSupplier(control As IRibbonControl)
     Dim totalOverpayLocation As String
     totalOverpayLocation = "M" + CStr(analysisEnd + 1)
 
-    Worksheets("Analysis").Range("J2", dateSearchFormEnd).NumberFormat = "m/d/yyyy"
-
-    Worksheets("Analysis").Range("J2", dateSearchFormEnd).FormulaR1C1 = "=VLOOKUP(C[-9],ModLog!C[-8]:C[-3],6,0)"
-
-    Worksheets("Analysis").Range("K2", timeCompareFormEnd).FormulaR1C1 = "=IF(C[-1]<C[-6],0,1)"
-
-    Worksheets("Analysis").Range("L2", overpayPerOrderEnd).FormulaR1C1 = "=C[-8]-C[-9]"
-
-    Worksheets("Analysis").Range("M2", overpayTimesOrerQty).FormulaR1C1 = "=C[-1]*C[-7]"
-
-    Worksheets("Analysis").ListObjects("Tabela_Analiza_drozszych_zakuow___2").Resize Range( _
+    Worksheets("incognito").Range("J2", dateSearchFormEnd).NumberFormat = "m/d/yyyy"
+    Worksheets("incognito").Range("J2", dateSearchFormEnd).FormulaR1C1 = "=VLOOKUP(C[-9],ModLog!C[-8]:C[-3],6,0)"
+    Worksheets("incognito").Range("K2", timeCompareFormEnd).FormulaR1C1 = "=IF(C[-1]<C[-6],0,1)"
+    Worksheets("incognito").Range("L2", overpayPerOrderEnd).FormulaR1C1 = "=C[-8]-C[-9]"
+    Worksheets("incognito").Range("M2", overpayTimesOrerQty).FormulaR1C1 = "=C[-1]*C[-7]"
+    Worksheets("incognito").ListObjects("table-1").Resize Range( _
         "$A$1", overpayTimesOrerQty)
-
-    Worksheets("Analysis").ListObjects("Tabela_Analiza_drozszych_zakuow___2").Range. _
+    Worksheets("incognito").ListObjects("table-1").Range. _
         AutoFilter Field:=11, Criteria1:="=0", Operator:=xlOr, Criteria2:= _
         "=#N/D!"
-
 
     Dim dateInput As String
     dateInput = ""
     dateInput = Worksheets("Data").Range("C1:C1").Value
 
-    Worksheets("Analysis").ListObjects("Tabela_Analiza_drozszych_zakuow___2").Range. _
+    Worksheets("incognito").ListObjects("table-1").Range. _
         AutoFilter Field:=5, Operator:=xlFilterValues, Criteria2:=Array(1, _
         dateInput)
-
-
-    Worksheets("Analysis").Range(totalOverpayLocation, totalOverpayLocation).Formula = "=SUBTOTAL(109,[Kolumna4])"
-
-    'stare "=SUM($M$2:" & overpayTimesOrerQty & ")"'
-
-    '=SUM(R[-463]C:R[-7]C)
-
-    
-
-
-    Worksheets("Data").Range("C3:C3").Value = Worksheets("Analysis").Range(totalOverpayLocation, totalOverpayLocation).Value
+    Worksheets("incognito").Range(totalOverpayLocation, totalOverpayLocation).Formula = "=SUBTOTAL(109,[Kolumna4])"
+    Worksheets("xxx").Range("C3:C3").Value = Worksheets("incognito").Range(totalOverpayLocation, totalOverpayLocation).Value
 
 End Sub
 
